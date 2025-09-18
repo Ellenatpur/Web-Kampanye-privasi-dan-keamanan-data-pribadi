@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampanye Privasi & Keamanan Data Pribadi</title>
+    <style>
+        /* Variabel Warna */
+        :root {
+            --dark-blue: #0a1931;
+            --medium-blue: #185abd;
+            --light-blue: #4fc3f7;
+            --galaxy-blue: #1a237e;
+            --accent: #00bcd4;
+            --text-light: #f5f5f5;
+            --text-dark: #333;
+        }
+        
+        /* Reset & Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, var(--dark-blue), var(--galaxy-blue));
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: rgba(10, 25, 49, 0.8);
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(26, 35, 126, 0.3)"/></svg>');
+            background-size: cover;
+            z-index: -1;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--light-blue);
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(10, 25, 49, 0.9);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 5px 15px;
+        }
+        
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover, 
+        nav ul li a.active {
+            background: var(--accent);
+            color: var(--dark-blue);
+        }
+        
+        /* Main Content */
+        .page {
+            display: none;
+            padding: 30px 0;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Card Styles */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card h3 {
+            color: var(--light-blue);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        
+        .card p {
+            margin-bottom: 20px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark-blue);
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            background: var(--light-blue);
+            transform: scale(1.05);
+        }
+        
+        /* Content Pages */
+        .content-page {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .content-page h2 {
+            color: var(--light-blue);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .image-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-gallery img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: rgba(10, 25, 49, 0.8);
+            border-top: 1px solid var(--accent);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="stars" id="stars"></div>
+        <div class="container">
+            <h1>Kampanye Privasi & Keamanan Data Pribadi</h1>
+            <p>By : Ellena Terison Purnomo</p>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#" class="nav-link active" data-page="home">Beranda</a></li>
+            <li><a href="#" class="nav-link" data-page="pengertian">Pengertian</a></li>
+            <li><a href="#" class="nav-link" data-page="argumentasi">Argumentasi</a></li>
+            <li><a href="#" class="nav-link" data-page="contoh">Contoh Kebocoran</a></li>
+            <li><a href="#" class="nav-link" data-page="penegasan">Penegasan Ulang</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <h2>Selamat Datang </h2>
+            <p>Website ini didedikasikan untuk meningkatkan kesadaran tentang pentingnya privasi dan keamanan data pribadi di era digital. Jelajahi berbagai section untuk mempelajari lebih lanjut.</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3>Pengertian</h3>
+                    <p>Privasi dan keamanan data pribadi adalah hak asasi setiap individu yang harus dijaga dengan serius. </p>
+                    <a href="#" class="read-more" data-page="pengertian">Baca Selengkapnya</a>
+                </div>
+                
+                <div class="card">
+                    <h3>Argumentasi</h3>
+                    <p>Mengapa privasi data begitu penting? Temukan argumen-argumen kuat mengapa kita semua perlu serius tentang melindungi data pribadi.</p>
+                    <a href="#" class="read-more" data-page="argumentasi">Baca Selengkapnya</a>
+                </div>
+                
+                <div class="card">
+                    <h3>Contoh Kebocoran Data</h3>
+                    <p>Belajar dari kasus-kasus nyata kebocoran data yang pernah terjadi. Kisah-kisah ini menunjukkan betapa rentannya data pribadi kita.</p>
+                    <a href="#" class="read-more" data-page="contoh">Baca Selengkapnya</a>
+                </div>
+                
+                <div class="card">
+                    <h3>Penegasan Ulang</h3>
+                    <p>Sebuah penegasan tentang pentingnya menjaga data pribadi dan langkah-langkah yang dapat kita ambil bersama untuk melindunginya.</p>
+                    <a href="#" class="read-more" data-page="penegasan">Baca Selengkapnya</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pengertian Page -->
+        <section id="pengertian" class="page">
+            <div class="content-page">
+                <h2>Pengertian Privasi dan Keamanan Data Pribadi</h2>
+                <p>Privasi dan keamanan data pribadi adalah hak asasi setiap individu yang harus dijaga dengan serius. Di era digital ini, data pribadi sudah menjadi bagian penting dari kehidupan kita. Mulai dari nama lengkap, alamat, nomor telepon, hingga riwayat transaksi, semuanya tersimpan di berbagai platform digital. Data-data tersebut bukan sekadar informasi biasa, melainkan identitas yang mencerminkan siapa kita. Jika data tersebut jatuh ke tangan yang salah, maka dampaknya bisa sangat merugikan. Oleh karena itu, menjaga privasi dan keamanan data pribadi adalah kewajiban bersama yang tidak boleh diabaikan.</p>
+                
+</p>
+                
+
+                
+                <div class="image-gallery">
+                    <img src="https://via.placeholder.com/300x200/1a237e/ffffff?text=Data+Privacy" alt="Ilustrasi Privasi Data">
+                    <img src="https://via.placeholder.com/300x200/185abd/ffffff?text=Data+Security" alt="Ilustrasi Keamanan Data">
+                    <img src="https://via.placeholder.com/300x200/4fc3f7/000000?text=Digital+Protection" alt="Ilustrasi Perlindungan Digital">
+                </div>
+                
+                <a href="#" class="http://127.0.0.1:5500/index.html">Kembali ke Beranda</a>
+            </div>
+        </section>
+        
+        <!-- Argumentasi Page -->
+        <section id="argumentasi" class="page">
+            <div class="content-page">
+                <h2>Argumentasi Pentingnya Privasi Data</h2>
+                <p>Privasi data adalah hak asasi manusia yang diakui secara internasional. Dalam Deklarasi Universal Hak Asasi Manusia PBB, Pasal 12 menyatakan bahwa "Tidak seorang pun boleh menjadi sasaran campur tangan yang sewenang-wenang dalam kehidupan pribadinya, keluarga, rumah tangga atau korespondensinya."</p>
+                
+                <p>Berikut adalah beberapa argumen mendasar mengapa privasi data sangat penting:</p>
+                
+                <h3>1. Perlindungan dari Penyalahgunaan</h3>
+                <p>Data pribadi dapat disalahgunakan untuk penipuan, pencurian identitas, pemerasan, atau diskriminasi. Dengan melindungi privasi, kita mengurangi risiko penyalahgunaan ini.</p>
+                
+                <h3>2. Otonomi Individual</h3>
+                <p>Privasi memungkinkan individu untuk mengembangkan kepribadian dan hubungan tanpa takut dihakimi atau diawasi. Ini adalah dasar untuk kebebasan berekspresi dan berpikir.</p>
+                
+                <h3>3. Kepercayaan dalam Masyarakat Digital</h3>
+                <p>Tanpa privasi, orang akan enggan berpartisipasi dalam ekonomi digital. Kepercayaan bahwa data mereka akan dilindungi sangat penting untuk adopsi layanan digital.</p>
+                
+                <div class="image-gallery">
+                    <img src="https://via.placeholder.com/300x200/0a1931/ffffff?text=Privacy+Matters" alt="Privasi Penting">
+                    <img src="https://via.placeholder.com/300x200/00bcd4/000000?text=Digital+Rights" alt="Hak Digital">
+                </div>
+                
+                <a href="#" class="read-more back-button">Kembali ke Beranda</a>
+            </div>
+        </section>
+        
+        <!-- Contoh Kebocoran Page -->
+        <section id="contoh" class="page">
+            <div class="content-page">
+                <h2>Contoh Kasus Kebocoran Data Pribadi</h2>
+                <p>Berikut adalah beberapa contoh nyata kebocoran data yang pernah terjadi dan memberikan dampak signifikan:</p>
+                
+                <h3>1. Kebocoran Data BPJS Kesehatan (2021)</h3>
+                <p>Data sekitar 279 juta peserta BPJS Kesehatan bocor dan diperjualbelikan di dark web. Data yang bocor mencakup NIK, nomor telepon, tanggal lahir, dan informasi sensitif lainnya.</p>
+                
+                <h3>2. Kebocoran Data Tokopedia (2020)</h3>
+                <p>Data lebih dari 91 juta pengguna Tokopedia diduga bocor dan diperjualbelikan. Data termasuk nama lengkap, email, nomor telepon, dan tanggal lahir.</p>
+                
+                <h3>3. Kebocoran Data WhatsApp (2019)</h3>
+                <p>Sebuah vulnerability dalam aplikasi WhatsApp memungkinkan penyerang menyusup spyware hanya dengan melakukan panggilan yang tidak perlu dijawab oleh korban.</p>
+                
+                <div class="image-gallery">
+                    <img src="https://via.placeholder.com/300x200/ff5252/ffffff?text=Data+Breach" alt Ilustrasi Kebocoran Data">
+                    <img src="https://via.placeholder.com/300x200/ff4081/ffffff?text=Hacked" alt="Ilustrasi Peretasan">
+                    <img src="https://via.placeholder.com/300x200/e91e63/ffffff?text=Data+Leak" alt="Ilustrasi Kebocoran">
+                </div>
+                
+                <p>Anda dapat menambahkan gambar contoh kebocoran data di sini:</p>
+                <div class="image-gallery" id="user-images">
+                    <!-- Ruang untuk menempel gambar -->
+                    <p>Ruang untuk gambar Anda (edit di HTML untuk menambahkan gambar)</p>
+                </div>
+                
+                <a href="#" class="read-more back-button">Kembali ke Beranda</a>
+            </div>
+        </section>
+        
+        <!-- Penegasan Ulang Page -->
+        <section id="penegasan" class="page">
+            <div class="content-page">
+                <h2>Penegasan Ulang: Pentingnya Melindungi Data Pribadi</h2>
+                <p>Setelah memahami pengertian, argumentasi, dan contoh-contoh kebocoran data, kita perlu menegaskan kembali komitmen untuk melindungi data pribadi.</p>
+                
+                <p>Privasi data bukan hanya tentang menyembunyikan informasi, tetapi tentang:</p>
+                <ul>
+                    <li>Hak untuk mengontrol informasi pribadi kita</li>
+                    <li>Membangun kepercayaan dalam interaksi digital</li>
+                    <li>Melindungi diri dari potensi bahaya dan kerugian</li>
+                    <li>Mempertahankan otonomi dan kebebasan individu</li>
+                </ul>
+                
+                <p>Kita semua memiliki peran dalam melindungi data pribadi, baik sebagai individu, bisnis, maupun pemerintah. Langkah-langkah seperti menggunakan kata sandi yang kuat, mengaktifkan autentikasi dua faktor, dan berhati-hati dalam berbagi informasi online adalah langkah awal yang penting.</p>
+                
+                <div class="image-gallery">
+                    <img src="https://via.placeholder.com/300x200/4caf50/ffffff?text=Data+Protection" alt="Perlindungan Data">
+                    <img src="https://via.placeholder.com/300x200/8bc34a/000000?text=Secure+Future" alt="Masa Depan Aman">
+                </div>
+                
+                <a href="#" class="read-more back-button">Kembali ke Beranda</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Kampanye Privasi dan Keamanan Data Pribadi</p>
+            <p>Website ini dibuat untuk tujuan edukasi dan kesadaran tentang pentingnya melindungi data pribadi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript untuk navigasi dan efek bintang
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigasi antar halaman
+            const navLinks = document.querySelectorAll('.nav-link, .read-more');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Jika tombol kembali
+                    if(this.classList.contains('back-button')) {
+                        targetPage = 'home';
+                    }
+                    
+                    // Sembunyikan semua halaman
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    // Tampilkan halaman target
+                    document.getElementById(targetPage).classList.add('active');
+                    
+                    // Update navigasi aktif
+                    document.querySelectorAll('.nav-link').forEach(nav => {
+                        nav.classList.remove('active');
+                        if(nav.getAttribute('data-page') === targetPage) {
+                            nav.classList.add('active');
+                        }
+                    });
+                    
+                    // Scroll ke atas
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            // Membuat efek bintang
+            const starsContainer = document.getElementById('stars');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Posisi acak
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Ukuran acak
+                const size = Math.random() * 3;
+                
+                // Durasi animasi acak
+                const duration = Math.random() * 5 + 3;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDuration = `${duration}s`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        });
+    </script>
+</body>
+</html>
